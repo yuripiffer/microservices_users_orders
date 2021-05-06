@@ -1,6 +1,5 @@
 from flask import Flask, request
 from model_orders import Orders
-import requests
 
 app = Flask(__name__)
 
@@ -54,6 +53,6 @@ def delete_order(id):
         return f"Usuário {id} excluído com sucesso", 200
     return f"Ops, usuário {id} não foi excluído.", 400
 
-app.run(debug=True)
+# app.run(debug=True)
 
 

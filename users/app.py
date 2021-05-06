@@ -65,5 +65,5 @@ def delete_user(id):
     return f"Ops, usuário {id} não foi excluído.", 400
 
 
-app.run(debug=True)
+# app.run(debug=True)
 

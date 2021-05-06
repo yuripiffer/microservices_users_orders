@@ -1,0 +1,35 @@
+EXPLICAÇÃO DE COMO CRIAR OS 3 CONTAINERS DOCKERS
+-app_orders
+-app_users
+-db_orders_users_docker
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+COMANDOS ABAIXO
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+docker container create --net rede_orders_users_docker --net-alias alias_db --name db_order_users -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=microservices_users_orders_db mysql:5.7
+
+cd E:\GITHUB_FILES\microservices_users_order\orders
+docker build -t imagem_api_orders .
+
+
+<<<dentro da pasta E:\GITHUB_FILES\microservices_users_order) eu abro o powershell>>>
+<<<digito>>> cd users
+docker build -t imagem_api_users  .
+
+docker network create rede_orders_users_docker
+
+docker container create -p 5000:5000 --net rede_orders_users_docker --net-alias alias_api_orders --name api_orders imagem_api_orders  
+
+docker container create -p 5001:5001 --net rede_orders_users_docker --net-alias alias_api_users --name api_users  imagem_api_users  
+
+<<<vou no docker e inicializo o container do db, depois os outros 2>>>
+
+docker start db_order_users
+
+docker start api_orders
+
+docker start api_users
+
+
+

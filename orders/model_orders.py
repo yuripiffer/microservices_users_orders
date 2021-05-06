@@ -1,4 +1,4 @@
-from orders.db_orders import DbOrder
+from db_orders import DbOrder
 from datetime import datetime
 
 

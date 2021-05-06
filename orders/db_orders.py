@@ -3,7 +3,7 @@ import pandas as pd
 
 class DbOrder:
     def __init__(self):
-        self.HOST = "localhost"
+        self.HOST = "alias_db"
         self.USER = "root"
         self.PASSWORD = ""
         self.PORT = 3306

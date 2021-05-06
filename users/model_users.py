@@ -1,5 +1,5 @@
 import uuid
-from users.db_users import DbUser
+from db_users import DbUser
 from datetime import datetime
 # datetime.strptime(datetime.now, "%d/%m/%Y - %H:%M:%S")
 import cpf_tools
