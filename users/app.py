@@ -32,13 +32,11 @@ def post_user():
     for i in list(body_request.keys()):
         if i not in ['nome', 'cpf', 'email', 'phone_number']:
             return "Campos faltantes", 400
-
     retorno = User().validar_campos(body_request)
     if not isinstance(retorno, dict):
         return retorno #que será uma mensagem de erro
     retorno["id"] = User().gerar_id_user()
     if User().cadastrar_user(retorno):
-        print("chegou aqui")
         return "Usuário Cadastrado com sucesso!", 200
     return "Usuário não Cadastrado. Problema no banco de dados.", 400
 

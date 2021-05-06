@@ -103,7 +103,6 @@ class User:
 
 
 
-
 ####### /////////////////////////   AUXILIARES   /////////////////////////
 
     def convert_dict_to_sql_string(self, data: dict, separator=",") -> str:

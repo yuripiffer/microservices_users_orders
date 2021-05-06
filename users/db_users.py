@@ -32,5 +32,3 @@ class DbUser:
                 return dict_resposta
         except:
             return False
-
-DbUser()
