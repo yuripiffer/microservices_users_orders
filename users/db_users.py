@@ -28,7 +28,9 @@ class DbUser:
             if affected_rows > 0:
                 columns = [i[0] for i in self.cursor.description]
                 df = pd.DataFrame(self.cursor.fetchall(), columns=columns)
-                dict_resposta = df.to_json(orient="records")
+                dict_resposta = df.astype(str).to_json(orient="records")
                 return dict_resposta
         except:
             return False
+
+DbUser()
