@@ -3,7 +3,8 @@ import pandas as pd
 
 class DbOrder:
     def __init__(self):
-        self.HOST = "alias_db"
+        # self.HOST = "alias_db"
+        self.HOST = "localhost"
         self.USER = "root"
         self.PASSWORD = ""
         self.PORT = 3306
@@ -28,7 +29,7 @@ class DbOrder:
             if affected_rows > 0:
                 columns = [i[0] for i in self.cursor.description]
                 df = pd.DataFrame(self.cursor.fetchall(), columns=columns)
-                dict_resposta = df.astype(str).to_json(orient="records")
+                dict_resposta = df.astype(str).to_dict(orient="records")
                 return dict_resposta
         except:
             return False

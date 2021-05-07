@@ -3,7 +3,8 @@ import pandas as pd
 
 class DbUser:
     def __init__(self):
-        self.HOST = "alias_db"
+        # self.HOST = "alias_db"
+        self.HOST = "localhost"
         self.USER = "root"
         self.PASSWORD = ""
         self.PORT = 3306

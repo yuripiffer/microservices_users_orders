@@ -1,6 +1,5 @@
 from model_users import User
 from flask import Flask, request
-import requests
 
 app = Flask(__name__)
 
@@ -9,9 +8,9 @@ app = Flask(__name__)
 def index():
     return "MICROSERVICES - USERS"
 
-
-@app.route("/listar/<id>/", methods=["GET"])
-@app.route("/listar/", methods=["GET"])
+#Pode-se informar o id do user ou não passar id
+@app.route("/listar_user/<id>/", methods=["GET"])
+@app.route("/listar_user/", methods=["GET"])
 def get_users(id=None):
     response = User().retornar_user(id)
     if response:
@@ -19,13 +18,15 @@ def get_users(id=None):
     return "Nenhum valor foi encontrado", 400
 
 
-@app.route("/criar/", methods=["POST"])
+@app.route("/criar_user/", methods=["POST"])
 def post_user():
-    """
-    recebe no corpo um dicionário:
-    dict("nome" = nome, "cpf" = cpf, "email" = email, "phone_number"= phone_number),
-    Depois valida e manipula os campos, gera id e persiste os dados.
-    :return: mensagem de sucesso ou erro.
+    """   Espera receber
+    {
+    "nome": str,
+    "cpf": "str que depois retirará '.,-/' para persistir,
+    "email": str,
+    "phone_number": str,
+    }
     """
     body_request = request.get_json()
     # CHECA SE OS 4 CAMPOS FORAM PASSADOS
@@ -41,8 +42,12 @@ def post_user():
     return "Usuário não Cadastrado. Problema no banco de dados.", 400
 
 
-@app.route("/alterar/<id>/", methods=["PUT"])
+@app.route("/alterar_user/<id>/", methods=["PUT"])
 def put_user(id):
+    """
+    Passar o id do usero na url e informar pelo menos uma
+    das keys (que constam na descrição de 'criar_user' neste arquivo
+    """
     if not User().checar_id_exists(id):
          return "Id do usuário inválido.", 400
     body_request = request.get_json()
@@ -56,7 +61,7 @@ def put_user(id):
     return f"Ops, usuário {id} não foi alterado."
 
 
-@app.route("/excluir/<id>/", methods=["DELETE"])
+@app.route("/excluir_user/<id>/", methods=["DELETE"])
 def delete_user(id):
     if not User().checar_id_exists(id):
          return "Id do usuário inválido.", 400
@@ -65,5 +70,5 @@ def delete_user(id):
     return f"Ops, usuário {id} não foi excluído.", 400
 
 
-# app.run(debug=True)
+app.run(debug=True, port=5001)
 
